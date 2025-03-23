@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkBuddy AI英语练习 - 商业报告</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* 基本样式 */
+        .tab-content {
+            display: none;
+        }
+        
+        /* 手风琴样式 */
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        /* 图表动画 */
+        .chart-bar {
+            transition: width 1s ease-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .chart-bar {
+            transition: width 1s ease-out;
+        }
+        .persona-card {
+            transition: all 0.3s ease;
+        }
+        .persona-card:hover {
+            transform: scale(1.03);
+        }
+        .timeline-item {
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            height: 100%;
+            width: 2px;
+            background-color: #e5e7eb;
+            top: 30px;
+        }
+        .timeline-item:last-child::before {
+            height: 0;
+        }
+        .timeline-circle {
+            z-index: 1;
+            position: relative;
+        }
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .accordion-body.active {
+            max-height: 500px;
+        }
+        .icon {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-shadow:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- SVG Icon Definitions -->
+    <svg style="display: none;">
+        <!-- General Icons -->
+        <symbol id="icon-lightbulb" viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 0.55 0.45 1 1 1h6c0.55 0 1-0.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-1 14h2v1h-2v-1zm0-10c-0.55 0-1 0.45-1 1s0.45 1 1 1 1-0.45 1-1-0.45-1-1-1z"/>
+        </symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </symbol>
+        <symbol id="icon-trophy" viewBox="0 0 24 24">
+            <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+        </symbol>
+        <symbol id="icon-heart" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </symbol>
+        <symbol id="icon-smile" viewBox="0 0 24 24">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+        </symbol>
+        <symbol id="icon-user-cog" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm6.24-1.69l2.47-2.47.71.71-2.47 2.47c.17.55.27 1.12.27 1.73 0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6c.61 0 1.18.1 1.73.27l2.47-2.47.71.71-2.47 2.47C15.9 8.52 16 9.09 16 9.7c0 .61-.1 1.18-.27 1.73z"/>
+        </symbol>
+        <symbol id="icon-comments" viewBox="0 0 24 24">
+            <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        </symbol>
+        <symbol id="icon-user-graduate" viewBox="0 0 24 24">
+            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+        </symbol>
+        <symbol id="icon-friends" viewBox="0 0 24 24">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 9s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+        </symbol>
+        <symbol id="icon-tired" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-5c.78 1.38 2.22 2.31 3.9 2.31 1.78 0 3.32-1.04 4.1-2.31H7z M15.5 8c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z M8.5 8c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"/>
+        </symbol>
+        <symbol id="icon-comment-slash" viewBox="0 0 24 24">
+            <path d="M21.99 12.34C22 12.23 22 12.11 22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5.17 3.93 9.43 8.96 9.95c-.93-.73-1.72-1.64-2.32-2.68C5.9 18 4 15.22 4 12c0-1.85.63-3.55 1.69-4.9l5.86 5.86c-.23.08-.47.14-.81.14c-1.1 0-2-.9-2-2c0-.34.06-.58.14-.81l5.86 5.86c-1.35 1.06-3.05 1.69-4.9 1.69c-.31 0-.62-.02-.92-.06C9.5 19.83 11.11 21 13 21h1v-1c0-1.11.9-2 2-2s2 .89 2 2v1h1c2.67 0 4.83-2.17 4.83-4.83c0-.79-.2-1.54-.54-2.19l-1.3-1.64zM13 7h-2v2h2V7zm0 4h-2v2h2v-2z M21.19 21.19L2.81 2.81L1.39 4.22l4.2 4.2c-.54 1.09-.83 2.31-.83 3.58c0 4.42 3.58 8 8 8c1.85 0 3.55-.63 4.9-1.69l2.11 2.11l1.42-1.42z"/>
+        </symbol>
+        <symbol id="icon-hourglass" viewBox="0 0 24 24">
+            <path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/>
+        </symbol>
+        <symbol id="icon-theater" viewBox="0 0 24 24">
+            <path d="M21 6h-4.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H2v16h20V6zm-9-1.5c.83 0 1.5.67 1.5 1.5S12.83 7.5 12 7.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-3 0c.83 0 1.5.67 1.5 1.5S9.83 7.5 9 7.5 7.5 6.83 7.5 6 8.17 4.5 9 4.5zm-3 15H4v-8h2v8zm4 0H8v-8h2v8zm4 0h-2v-8h2v8zm4 0h-2v-8h2v8zm4 0h-2v-8h2v8z"/>
+        </symbol>
+        <symbol id="icon-plane" viewBox="0 0 24 24">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+        </symbol>
+        <symbol id="icon-graduation-cap" viewBox="0 0 24 24">
+            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+        </symbol>
+        <symbol id="icon-robot" viewBox="0 0 24 24">
+            <path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3c1.66 0 3-1.34 3-3s-1.34-3-3-3zm-2 8H6v-8h12v8zm-9-4c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1zm6 0c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1z"/>
+        </symbol>
+        <symbol id="icon-rocket" viewBox="0 0 24 24">
+            <path d="M12 2C9.91 2 7.9 2.24 5.98 2.72C5.39 2.88 5 3.4 5 4v10c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-.6-.4-1.12-1-1.28C16.1 2.24 14.09 2 12 2zm0 13c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6-7H6V4h12v4z M17 16c-.55 0-1 .45-1 1s.45 1 1 1h3c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1s-1 .45-1 1v2h-2z M7 16c-.55 0-1 .45-1 1v2H4c-.55 0-1 .45-1 1s.45 1 1 1h3c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1z"/>
+        </symbol>
+        <symbol id="icon-chart" viewBox="0 0 24 24">
+            <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+        </symbol>
+        <symbol id="icon-globe" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </symbol>
+        <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/>
+        </symbol>
+        <symbol id="icon-times-circle" viewBox="0 0 24 24">
+            <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+        </symbol>
+    </svg>
+
+    <!-- 页面标题 -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h1 class="text-4xl font-bold mb-2">TalkBuddy</h1>
+                    <p class="text-xl text-blue-100">AI英语口语陪练 - 商业计划书</p>
+                </div>
+                <div class="glass-effect py-2 px-4 rounded-lg">
+                    <p class="text-white">版本: 1.0 | 日期: 2025年3月23日</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">TalkBuddy</h3>
+                    <p class="text-gray-400">你的私人英语对话伙伴</p>
+                </div>
+                <div class="glass-effect py-2 px-4 rounded-lg">
+                    <p>版本: 1.0 | 日期: 2025年3月23日</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 最简单的标签切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 基本变量
+            var tabButtons = document.querySelectorAll('.tab-button');
+            var tabContents = document.querySelectorAll('.tab-content');
+            
+            // 隐藏所有标签内容
+            function hideAllTabs() {
+                tabContents.forEach(function(content) {
+                    content.style.display = 'none';
+                });
+            }
+            
+            // 重置所有按钮样式
+            function resetButtons() {
+                tabButtons.forEach(function(btn) {
+                    btn.classList.remove('text-blue-600', 'bg-blue-50');
+                    btn.classList.add('text-gray-600');
+                });
+            }
+            
+            // 初始隐藏所有标签
+            hideAllTabs();
+            
+            // 为每个按钮添加点击事件
+            tabButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var tabId = this.getAttribute('data-tab');
+                    
+                    // 隐藏所有标签内容
+                    hideAllTabs();
+                    
+                    // 重置所有按钮样式
+                    resetButtons();
+                    
+                    // 激活当前标签和按钮
+                    document.getElementById(tabId).style.display = 'block';
+                    this.classList.add('text-blue-600', 'bg-blue-50');
+                    this.classList.remove('text-gray-600');
+                });
+            });
+            
+            // 默认显示第一个标签
+            if(tabButtons.length > 0) {
+                tabButtons[0].click();
+            }
+            
+            // 简化的手风琴功能
+            var accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(function(header) {
+                header.addEventListener('click', function() {
+                    var body = this.nextElementSibling;
+                    var icon = this.querySelector('svg');
+                    
+                    if(body.style.maxHeight) {
+                        body.style.maxHeight = null;
+                        if(icon) icon.style.transform = 'rotate(0)';
+                    } else {
+                        body.style.maxHeight = body.scrollHeight + 'px';
+                        if(icon) icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+            
+            // 简化的图表动画
+            var chartBars = document.querySelectorAll('.chart-bar');
+            
+            chartBars.forEach(function(bar) {
+                var targetWidth = bar.style.width;
+                bar.style.width = '0';
+                
+                setTimeout(function() {
+                    bar.style.width = targetWidth;
+                }, 500);
+            });
+        });
+    </script>
+    </script>
+</body>
+</html>
+
+    <!-- 导航栏 -->
+    <div class="bg-white sticky top-0 shadow-md z-10">
+        <div class="container mx-auto">
+            <div class="flex overflow-x-auto whitespace-nowrap py-2 px-4">
+                <button class="tab-button px-4 py-2 mr-2 font-medium rounded-lg text-sm focus:outline-none text-blue-600 bg-blue-50 transition duration-200" data-tab="overview">产品概述</button>
+                <button class="tab-button px-4 py-2 mr-2 font-medium rounded-lg text-sm focus:outline-none text-gray-600 hover:text-blue-600 transition duration-200" data-tab="users">目标用户</button>
+                <button class="tab-button px-4 py-2 mr-2 font-medium rounded-lg text-sm focus:outline-none text-gray-600 hover:text-blue-600 transition duration-200" data-tab="features">核心功能</button>
+                <button class="tab-button px-4 py-2 mr-2 font-medium rounded-lg text-sm focus:outline-none text-gray-600 hover:text-blue-600 transition duration-200" data-tab="ai-personas">AI角色设计</button>
+                <button class="tab-button px-4 py-2 mr-2 font-medium rounded-lg text-sm focus:outline-none text-gray-600 hover:text-blue-600 transition duration-200" data-tab="metrics">关键指标</button>
+                <button class="tab-button px-4 py-2 mr-2 font-medium rounded-lg text-sm focus:outline-none text-gray-600 hover:text-blue-600 transition duration-200" data-tab="roadmap">产品路线图</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 产品概述标签页 -->
+        <div id="overview" class="tab-content active">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 card-shadow">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">产品概述</h2>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg transition duration-200 hover:shadow-md">
+                            <div class="flex items-center mb-2">
+                                <svg class="icon text-blue-500 mr-2"><use xlink:href="#icon-lightbulb"></use></svg>
+                                <h3 class="font-semibold text-blue-700">产品愿景</h3>
+                            </div>
+                            <p class="text-gray-600">打造一款基于AI角色的英语口语练习应用，通过构建有情感连接的AI会话伙伴，让用户在轻松自然的对话中提升英语口语能力。</p>
+                        </div>
+                        
+                        <div class="bg-indigo-50 p-4 rounded-lg transition duration-200 hover:shadow-md">
+                            <div class="flex items-center mb-2">
+                                <svg class="icon text-indigo-500 mr-2"><use xlink:href="#icon-target"></use></svg>
+                                <h3 class="font-semibold text-indigo-700">产品定位</h3>
+                            </div>
+                            <p class="text-gray-600">"TalkBuddy" - 你的私人英语对话伙伴，不只是工具，更是朋友。</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg transition duration-200 hover:shadow-md">
+                            <div class="flex items-center mb-2">
+                                <svg class="icon text-purple-500 mr-2"><use xlink:href="#icon-trophy"></use></svg>
+                                <h3 class="font-semibold text-purple-700">市场机会</h3>
+                            </div>
+                            <p class="text-gray-600">全球有超过15亿英语学习者，其中大多数缺乏有效的口语练习环境，特别是情感连接型AI产品。</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">核心价值主张</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <svg class="icon"><use xlink:href="#icon-heart"></use></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-800">情感连接</h4>
+                                <p class="text-gray-600">AI角色具有鲜明人格特征，用户能建立情感纽带</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                <svg class="icon"><use xlink:href="#icon-smile"></use></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-800">无焦虑学习</h4>
+                                <p class="text-gray-600">降低语言学习心理障碍，提供安全练习环境</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                                <svg class="icon"><use xlink:href="#icon-user-cog"></use></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-800">个性化体验</h4>
+                                <p class="text-gray-600">根据用户水平、兴趣和学习风格定制内容</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+                                <svg class="icon"><use xlink:href="#icon-comments"></use></svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-800">即时反馈</h4>
+                                <p class="text-gray-600">提供有针对性的语音、表达改进建议</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">与竞品的差异化</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 hover:shadow-md transition duration-200">
+                            <h4 class="font-medium text-gray-800 mb-2">与传统语言学习APP的区别</h4>
+                            <ul class="space-y-1 text-gray-600">
+                                <li class="flex items-center">
+                                    <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                    <span>聚焦真实对话而非碎片化学习</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                    <span>强调情感连接而非纯工具属性</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                    <span>提供有个性的AI伙伴而非通用AI助手</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="border rounded-lg p-4 hover:shadow-md transition duration-200">
+                            <h4 class="font-medium text-gray-800 mb-2">与Character.ai等对话平台的区别</h4>
+                            <ul class="space-y-1 text-gray-600">
+                                <li class="flex items-center">
+                                    <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                    <span>专注语言学习而非泛娱乐</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                    <span>提供专业语言反馈与改进建议</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                    <span>系统化的学习场景与进度追踪</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-shadow">
+                <div class="relative">
+                    <img src="/api/placeholder/1200/400" alt="TalkBuddy App Preview" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">立即开始英语对话练习</h3>
+                            <p class="mb-4">与AI角色建立情感连接，在轻松氛围中提升英语口语能力</p>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">了解更多</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 目标用户标签页 -->
+        <div id="users" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 card-shadow">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">目标用户</h2>
+
+                    <div class="flex flex-col md:flex-row mb-8">
+                        <div class="md:w-1/3 mb-4 md:mb-0 md:pr-6">
+                            <div class="bg-blue-50 rounded-lg p-5 h-full hover:shadow-md transition duration-200">
+                                <div class="text-center mb-4">
+                                    <span class="inline-block p-3 rounded-full bg-blue-100 text-blue-500 mb-2">
+                                        <svg class="icon text-xl"><use xlink:href="#icon-user-graduate"></use></svg>
+                                    </span>
+                                    <h3 class="text-xl font-semibold text-gray-800">主要目标用户</h3>
+                                </div>
+                                <div class="text-gray-600">
+                                    <p class="font-bold text-blue-600 mb-2">中级英语学习者(B1-B2)</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center">
+                                            <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>25-40岁职场人士和大学生</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>有一定英语基础但缺乏口语练习机会</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>有具体英语学习目标(如工作需求、出国旅行)</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <svg class="icon text-green-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>希望在轻松环境中提高口语能力</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="bg-indigo-50 rounded-lg p-5 h-full hover:shadow-md transition duration-200">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">用户痛点分析</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mr-3">
+                                                <svg class="icon"><use xlink:href="#icon-friends"></use></svg>
+                                            </div>
+                                            <h4 class="font-medium text-gray-800">缺乏练习伙伴</h4>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">没有合适的英语对话伙伴，找外教成本高且时间受限</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 mr-3">
+                                                <svg class="icon"><use xlink:href="#icon-tired"></use></svg>
+                                            </div>
+                                            <h4 class="font-medium text-gray-800">语言焦虑</h4>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">在真人面前说英语感到紧张和焦虑，害怕犯错</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 mr-3">
+                                                <svg class="icon"><use xlink:href="#icon-comment-slash"></use></svg>
+                                            </div>
+                                            <h4 class="font-medium text-gray-800">缺乏反馈</h4>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">没有专业的反馈和改进指导，不知道自己的问题在哪里</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                        <div class="flex items-center mb-2">
+                                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3">
+                                                <svg class="icon"><use xlink:href="#icon-hourglass"></use></svg>
+                                            </div>
+                                            <h4 class="font-medium text-gray-800">坚持困难</h4>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">传统学习方法枯燥乏味，难以长期坚持</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-5 hover:shadow-md transition duration-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">用户分层策略</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户层次</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">核心需求</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">推荐AI角色</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">优先功能</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">初级学习者 (A1-A2)</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-600">建立基础、降低焦虑、获得成就感</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-600">艾玛 (温暖支持型导师)</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-600">简化对话场景、高度容错、大量鼓励</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900 bg-blue-50 p-1 rounded">中级学习者 (B1-B2)</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-600">流利度提升、实用场景应用</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-600">杰克 (幽默友伴型会话伙伴)</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-600">日常和轻商务场景、流利度反馈</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">高级学习者 (C1-C2)</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-600">地道表达、细微区别、专业领域语言</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-600">索菲亚 (专业挑战型导师)</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-600">高难度场景、文化差异、专业术语</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心功能标签页 -->
+        <div id="features" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 card-shadow">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">核心功能</h2>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">MVP优先级功能</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="feature-card bg-white rounded-xl border border-blue-200 overflow-hidden shadow-sm transition duration-300">
+                                <div class="bg-blue-600 text-white px-4 py-2 text-sm font-medium">P0 - 最高优先级</div>
+                                <div class="p-4">
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-blue-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>3个核心AI角色</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-blue-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>5个基础对话场景</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-blue-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>语音识别与基础反馈</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-blue-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>简单的水平测试</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-blue-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>基础用户账号系统</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="feature-card bg-white rounded-xl border border-indigo-200 overflow-hidden shadow-sm transition duration-300">
+                                <div class="bg-indigo-600 text-white px-4 py-2 text-sm font-medium">P1 - 次优先级</div>
+                                <div class="p-4">
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-indigo-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>额外5个对话场景</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-indigo-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>连续对话记忆功能</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-indigo-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>简单的进步统计</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-indigo-500 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                            <span>社交分享功能</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="feature-card bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm transition duration-300">
+                                <div class="bg-gray-600 text-white px-4 py-2 text-sm font-medium">P2+ - 后续功能</div>
+                                <div class="p-4">
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-gray-400 mr-2"><use xlink:href="#icon-times-circle"></use></svg>
+                                            <span>自定义AI角色</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-gray-400 mr-2"><use xlink:href="#icon-times-circle"></use></svg>
+                                            <span>真人教师辅助</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-gray-400 mr-2"><use xlink:href="#icon-times-circle"></use></svg>
+                                            <span>高级语法分析</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-gray-400 mr-2"><use xlink:href="#icon-times-circle"></use></svg>
+                                            <span>社区功能</span>
+                                        </li>
+                                        <li class="flex items-center text-gray-700">
+                                            <svg class="icon text-gray-400 mr-2"><use xlink:href="#icon-times-circle"></use></svg>
+                                            <span>视频/图像识别功能</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">功能详情</h3>
+                        
+                        <!-- 手风琴组件 -->
+                        <div class="accordion border rounded-lg overflow-hidden">
+                            <div class="accordion-item">
+                                <button class="accordion-header w-full bg-gray-50 hover:bg-gray-100 px-4 py-3 text-left font-medium flex justify-between items-center">
+                                    <span>AI角色系统</span>
+                                    <svg class="icon text-gray-500 transform transition-transform"><use xlink:href="#icon-chevron-down"></use></svg>
+                                </button>
+                                <div class="accordion-body px-4 py-3 bg-white">
+                                    <p class="text-gray-700 mb-3">提供3个具有鲜明个性的AI对话角色：</p>
+                                    <ul class="space-y-2 text-gray-600 pl-5">
+                                        <li>"艾玛" - 温暖支持型导师(初学者友好)</li>
+                                        <li>"杰克" - 幽默友伴型会话伙伴(中级学习者)</li>
+                                        <li>"索菲亚" - 专业挑战型导师(高级学习者)</li>
+                                    </ul>
+                                    <p class="text-gray-700 mt-3">每个角色有独特视觉形象、语言习惯和对话风格，保持性格一致性，创造真实感。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item border-t">
+                                <button class="accordion-header w-full bg-gray-50 hover:bg-gray-100 px-4 py-3 text-left font-medium flex justify-between items-center">
+                                    <span>情境对话模块</span>
+                                    <svg class="icon text-gray-500 transform transition-transform"><use xlink:href="#icon-chevron-down"></use></svg>
+                                </button>
+                                <div class="accordion-body px-4 py-3 bg-white">
+                                    <p class="text-gray-700 mb-3">提供10个日常生活场景的结构化对话练习：</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">1. 咖啡厅点餐与闲聊</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">2. 酒店入住与服务请求</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">3. 简单工作面试</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">4. 机场与旅行会话</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">5. 商店购物与讨价还价</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">6. 餐厅用餐体验</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">7. 社交聚会介绍</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">8. 简单工作会议</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">9. 请求帮助与指路</div>
+                                        <div class="p-2 bg-gray-50 rounded text-gray-600">10. 健康与医疗对话</div>
+                                    </div>
+                                    <p class="text-gray-700 mt-3">每个场景5-10分钟可完成，提供场景引导和词汇提示，支持自由对话和引导式对话两种模式。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item border-t">
+                                <button class="accordion-header w-full bg-gray-50 hover:bg-gray-100 px-4 py-3 text-left font-medium flex justify-between items-center">
+                                    <span>语音识别与反馈系统</span>
+                                    <svg class="icon text-gray-500 transform transition-transform"><use xlink:href="#icon-chevron-down"></use></svg>
+                                </button>
+                                <div class="accordion-body px-4 py-3 bg-white">
+                                    <p class="text-gray-700 mb-3">实时分析用户口语，提供发音和表达反馈：</p>
+                                    <ul class="space-y-2 text-gray-600 pl-5">
+                                        <li>识别关键发音错误并提供纠正建议</li>
+                                        <li>分析语法错误和表达不自然之处</li>
+                                        <li>提供鼓励性反馈，注重正面引导</li>
+                                        <li>支持重复练习问题点</li>
+                                        <li>展示简单的进步统计数据</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item border-t">
+                                <button class="accordion-header w-full bg-gray-50 hover:bg-gray-100 px-4 py-3 text-left font-medium flex justify-between items-center">
+                                    <span>个性化学习路径</span>
+                                    <svg class="icon text-gray-500 transform transition-transform"><use xlink:href="#icon-chevron-down"></use></svg>
+                                </button>
+                                <div class="accordion-body px-4 py-3 bg-white">
+                                    <p class="text-gray-700 mb-3">根据用户水平和兴趣定制学习内容：</p>
+                                    <ul class="space-y-2 text-gray-600 pl-5">
+                                        <li>提供简单的入门水平测试(5分钟内完成)</li>
+                                        <li>收集用户兴趣和学习目标信息</li>
+                                        <li>推荐适合的AI角色和对话场景</li>
+                                        <li>随着使用动态调整内容难度</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item border-t">
+                                <button class="accordion-header w-full bg-gray-50 hover:bg-gray-100 px-4 py-3 text-left font-medium flex justify-between items-center">
+                                    <span>连续对话与记忆</span>
+                                    <svg class="icon text-gray-500 transform transition-transform"><use xlink:href="#icon-chevron-down"></use></svg>
+                                </button>
+                                <div class="accordion-body px-4 py-3 bg-white">
+                                    <p class="text-gray-700 mb-3">AI能记住之前对话内容，创造连续性体验：</p>
+                                    <ul class="space-y-2 text-gray-600 pl-5">
+                                        <li>记住用户名字、基本信息和偏好</li>
+                                        <li>引用过去的对话内容</li>
+                                        <li>跟踪用户常见错误，有针对性地纠正</li>
+                                        <li>建立连续的情感联系</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI角色设计标签页 -->
+        <div id="ai-personas" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 card-shadow">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">AI角色设计</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="persona-card bg-white rounded-xl shadow overflow-hidden">
+                            <div class="h-40 bg-blue-100 flex items-center justify-center">
+                                <img src="/api/placeholder/300/300" alt="Emma Character" class="h-32 w-32 rounded-full object-cover border-4 border-white shadow">
+                            </div>
+                            <div class="p-4">
+                                <div class="text-center mb-4">
+                                    <h3 class="text-xl font-bold text-gray-800">艾玛</h3>
+                                    <p class="text-blue-600 font-medium">温暖支持型导师</p>
+                                </div>
+                                <div class="space-y-3">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">人设特点</h4>
+                                        <p class="text-gray-700">耐心、鼓励性强、略带幽默感的30多岁英语教师</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">适合用户</h4>
+                                        <p class="text-gray-700">初学者、有语言焦虑者</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">对话风格</h4>
+                                        <p class="text-gray-700">使用简单词汇，频繁给予正面反馈，会适时分享有趣的文化背景</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">特殊能力</h4>
+                                        <p class="text-gray-700">能识别用户紧张情绪并调整交流节奏</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="persona-card bg-white rounded-xl shadow overflow-hidden">
+                            <div class="h-40 bg-green-100 flex items-center justify-center">
+                                <img src="/api/placeholder/300/300" alt="Jack Character" class="h-32 w-32 rounded-full object-cover border-4 border-white shadow">
+                            </div>
+                            <div class="p-4">
+                                <div class="text-center mb-4">
+                                    <h3 class="text-xl font-bold text-gray-800">杰克</h3>
+                                    <p class="text-green-600 font-medium">幽默友伴型会话伙伴</p>
+                                </div>
+                                <div class="space-y-3">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">人设特点</h4>
+                                        <p class="text-gray-700">有趣、随性、略带讽刺幽默的20多岁大学生</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">适合用户</h4>
+                                        <p class="text-gray-700">中级学习者、寻求轻松练习的用户</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">对话风格</h4>
+                                        <p class="text-gray-700">使用流行文化引用、俚语和日常表达</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">特殊能力</h4>
+                                        <p class="text-gray-700">能将严肃话题转化为轻松对话，降低学习压力</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="persona-card bg-white rounded-xl shadow overflow-hidden">
+                            <div class="h-40 bg-purple-100 flex items-center justify-center">
+                                <img src="/api/placeholder/300/300" alt="Sophia Character" class="h-32 w-32 rounded-full object-cover border-4 border-white shadow">
+                            </div>
+                            <div class="p-4">
+                                <div class="text-center mb-4">
+                                    <h3 class="text-xl font-bold text-gray-800">索菲亚</h3>
+                                    <p class="text-purple-600 font-medium">专业挑战型导师</p>
+                                </div>
+                                <div class="space-y-3">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">人设特点</h4>
+                                        <p class="text-gray-700">精确、高标准、直接但不失礼貌的精英商务人士</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">适合用户</h4>
+                                        <p class="text-gray-700">高级学习者、商务英语需求者</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">对话风格</h4>
+                                        <p class="text-gray-700">使用精准词汇、复杂句式、行业术语</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-500">特殊能力</h4>
+                                        <p class="text-gray-700">提供深度语言分析和商务环境中的文化差异指导</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 hover:shadow-md transition duration-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">未来角色扩展计划</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 mr-3">
+                                        <svg class="icon"><use xlink:href="#icon-theater"></use></svg>
+                                    </div>
+                                    <h4 class="font-medium text-gray-800">里奥 - 沉浸式角色扮演教练</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm">富有想象力的戏剧老师，能构建完整情境背景，引导用户完成角色扮演</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mr-3">
+                                        <svg class="icon"><use xlink:href="#icon-plane"></use></svg>
+                                    </div>
+                                    <h4 class="font-medium text-gray-800">阿莉 - 旅行伴侣型指南</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm">世界旅行者，分享各国文化趣事，教授实用旅行对话，根据目的地定制语言内容</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+                                        <svg class="icon"><use xlink:href="#icon-graduation-cap"></use></svg>
+                                    </div>
+                                    <h4 class="font-medium text-gray-800">卡尔 - 考试专家型教练</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm">注重细节的考试培训专家，能模拟考官风格，提供详细评分反馈</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition duration-200">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3">
+                                        <svg class="icon"><use xlink:href="#icon-robot"></use></svg>
+                                    </div>
+                                    <h4 class="font-medium text-gray-800">星尘 - 未来科技型伙伴</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm">科技感十足的AI助手，使用科技术语，可以角色扮演科幻场景</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 关键指标标签页 -->
+        <div id="metrics" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 card-shadow">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">关键指标</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">关键性能指标 (KPIs)</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">日活跃用户数(DAU)</span>
+                                        <span class="text-sm font-medium text-blue-600">目标: 5,000+</span>
+                                    </div>
+                                    <div class="h-4 bg-gray-200 rounded-full">
+                                        <div class="h-4 bg-blue-600 rounded-full chart-bar" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">平均会话时长</span>
+                                        <span class="text-sm font-medium text-blue-600">目标: 8分钟+</span>
+                                    </div>
+                                    <div class="h-4 bg-gray-200 rounded-full">
+                                        <div class="h-4 bg-blue-600 rounded-full chart-bar" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">7日留存率</span>
+                                        <span class="text-sm font-medium text-blue-600">目标: 40%+</span>
+                                    </div>
+                                    <div class="h-4 bg-gray-200 rounded-full">
+                                        <div class="h-4 bg-blue-600 rounded-full chart-bar" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">30日留存率</span>
+                                        <span class="text-sm font-medium text-blue-600">目标: 20%+</span>
+                                    </div>
+                                    <div class="h-4 bg-gray-200 rounded-full">
+                                        <div class="h-4 bg-blue-600 rounded-full chart-bar" style="width: 35%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">对话完成率</span>
+                                        <span class="text-sm font-medium text-blue-600">目标: 75%+</span>
+                                    </div>
+                                    <div class="h-4 bg-gray-200 rounded-full">
+                                        <div class="h-4 bg-blue-600 rounded-full chart-bar" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">用户NPS评分</span>
+                                        <span class="text-sm font-medium text-blue-600">目标: 30+</span>
+                                    </div>
+                                    <div class="h-4 bg-gray-200 rounded-full">
+                                        <div class="h-4 bg-blue-600 rounded-full chart-bar" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">技术性能指标</h3>
+                            <div class="overflow-hidden rounded-lg border border-gray-200">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">指标</th>
+                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">目标值</th>
+                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">优先级</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-800">语音识别延迟</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">&lt; 1秒</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">高</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-800">识别准确率</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">&gt; 90%</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">高</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-800">AI响应时间</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">&lt; 2秒</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">高</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-800">应用大小</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">&lt; 100MB</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">中</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-800">启动时间</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">&lt; 3秒</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">中</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-800">支持平台</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">iOS 14+, Android 9.0+</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">低</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 hover:shadow-md transition duration-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">成功的竞争对手指标参考</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">应用</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平均使用时长</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">30日留存率</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">月活用户</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">优势</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Character.ai</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">29分钟/日</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">35%</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">500万+</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600">强情感连接，AI角色多样性</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Duolingo</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">10分钟/日</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">24%</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">7000万+</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600">游戏化机制，短期反馈循环</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">TalkAI</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">15分钟/日</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">28%</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">100万+</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600">无痛学习体验，微课程设计</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Babbel</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">12分钟/日</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">20%</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">1000万+</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600">语法课程，专业语言学专家设计</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 产品路线图标签页 -->
+        <div id="roadmap" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 card-shadow">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">产品路线图</h2>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">上线计划</h3>
+                        <div class="pl-8">
+                            <div class="timeline-item flex mb-6">
+                                <div class="timeline-circle w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                                    <span>1</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium text-gray-800">阶段一：内测(4周)</h4>
+                                    <div class="mt-2 bg-blue-50 rounded-lg p-4">
+                                        <ul class="space-y-2 text-gray-600">
+                                            <li class="flex items-start">
+                                                <svg class="icon text-blue-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>招募100名测试用户</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-blue-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>优化3个核心AI角色体验</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-blue-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>完善5个基础对话场景</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-blue-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>提升语音识别准确度</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item flex mb-6">
+                                <div class="timeline-circle w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+                                    <span>2</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium text-gray-800">阶段二：公测(6周)</h4>
+                                    <div class="mt-2 bg-indigo-50 rounded-lg p-4">
+                                        <ul class="space-y-2 text-gray-600">
+                                            <li class="flex items-start">
+                                                <svg class="icon text-indigo-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>扩大至1000名用户</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-indigo-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>添加剩余场景</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-indigo-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>完善反馈系统</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-indigo-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>优化用户引导流程</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item flex">
+                                <div class="timeline-circle w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white">
+                                    <span>3</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium text-gray-800">阶段三：正式上线</h4>
+                                    <div class="mt-2 bg-green-50 rounded-lg p-4">
+                                        <ul class="space-y-2 text-gray-600">
+                                            <li class="flex items-start">
+                                                <svg class="icon text-green-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>应用商店上架</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-green-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>社交媒体营销活动</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-green-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>早期用户激励计划</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg class="icon text-green-500 mt-1 mr-2"><use xlink:href="#icon-check"></use></svg>
+                                                <span>数据监控与快速迭代</span>
+                                            </li>
+                
